@@ -1,0 +1,1 @@
+this is the mystatic file and created in the blog app.
