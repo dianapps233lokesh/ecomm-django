@@ -66,7 +66,7 @@ bottom: auto;
             <div class="card-body">
                 <h5 class="card-title">{{product.0.product_name}}</h5>
                 <p class="card-text">{{product.0.desc}}</p>
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+                 <button id="pr{{product.0.id}}" class="btn btn-primary cart">Add To Cart</button>
             </div>
           </div>
        </div>
@@ -79,7 +79,7 @@ bottom: auto;
             <div class="card-body">
               <h5 class="card-title">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
-              <a href="#" class="btn btn-primary">Add To Cart</a>
+              <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
             </div>
           </div>
         </div>
@@ -102,3 +102,31 @@ bottom: auto;
     {% endfor %}
 </div>
  {% endblock %}
+
+ {% block js %}
+ <script>
+  console.log('working')
+  if(localStorage.getItem('cart')==null){
+    var cart={};
+  }
+else{
+  cart=JSON.parse(localStorage.getItem('cart'));
+}
+// jQuery starts here
+
+$('.cart').click(function(){
+  console.log('clicked');
+  var idStr=this.id.toString();
+  console.log(idStr);
+  if(cart[idStr]!=undefined){
+    cart[idStr]=cart[idStr]+1;
+  }
+  else{
+    cart[idStr]=1;
+  }
+  console.log(cart);
+  localStorage.setItem('cart',JSON.stringify(cart));
+});
+
+ </script>
+ {%endblock%}
